@@ -2,7 +2,7 @@ import bpy
 import math
 
 def func(x):
-    return 1/x
+    return math.sin(x)
 
 bpy.ops.object.select_all(action='SELECT')
 bpy.ops.object.delete(use_global=False)
@@ -18,14 +18,21 @@ for object in bpy.data.objects:
     for vert in object.data.vertices:
         x = vert.co[0]
         y = vert.co[1]
-        if x != 0 and y != 0:
-            vert.co[2] = func(x) + func(y)
+        vert.co[2] = func(x) + func(y)
 
 bpy.ops.object.select_all(action='SELECT')
 bpy.ops.object.join()
 
 bpy.ops.object.editmode_toggle()
-#bpy.ops.mesh.select_all(action='SELECT')
-#bpy.ops.mesh.delete(type='ONLY_FACE')
+bpy.ops.mesh.select_all(action='SELECT')
+bpy.ops.mesh.delete(type='ONLY_FACE')
 bpy.ops.object.editmode_toggle()
 bpy.ops.object.shade_smooth(use_auto_smooth=True)
+
+
+"""bpy.ops.object.editmode_toggle()
+bpy.ops.object.modifier_add(type='SKIN')
+bpy.ops.mesh.select_all(action='SELECT')
+bpy.ops.object.skin_root_mark()
+bpy.ops.transform.skin_resize(value=(0.139442, 0.139442, 0.139442), orient_type='GLOBAL')
+bpy.ops.object.editmode_toggle()"""
